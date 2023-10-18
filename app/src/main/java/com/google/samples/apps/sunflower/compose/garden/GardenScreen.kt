@@ -21,6 +21,7 @@ import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -145,8 +146,8 @@ private fun GardenListItem(
     // Dimensions
     val cardSideMargin = dimensionResource(id = R.dimen.card_side_margin)
     val marginNormal = dimensionResource(id = R.dimen.margin_normal)
-    val imageWidth = 200.dp // Adjust the desired image width
-    val imageHeight = 200.dp // Adjust the desired image height
+    val imageWidth = 100.dp // Adjust the desired image width
+    val imageHeight = 150.dp // Adjust the desired image height
 
     ElevatedCard(
         onClick = { onPlantClick(plant) },
@@ -157,63 +158,63 @@ private fun GardenListItem(
         ),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
     ) {
-        Column(Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Add your image here
             SunflowerImage(
                 model = vm.imageUrl,
                 contentDescription = plant.plant.description,
-                Modifier
-                    .fillMaxWidth()
-                    .height(imageHeight) // Set the desired image height
-                    .width(imageWidth) // Set the desired image width
+                modifier = Modifier
+                    .height(imageHeight)
+                    .width(imageWidth)
                     .padding(marginNormal),
-                contentScale = ContentScale.Crop, // You can adjust the content scale as needed
+                contentScale = ContentScale.Crop
             )
 
-            // Plant name
-            Text(
-                text = vm.plantName,
-                Modifier
-                    .padding(vertical = marginNormal)
-                    .align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.titleMedium,
-            )
+            // Create a Column for the text content
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                // Plant name
+                Text(
+                    text = vm.plantName,
+                    modifier = Modifier.padding(vertical = marginNormal),
+                    style = MaterialTheme.typography.titleMedium,
+                )
 
-            // Planted date
-            Text(
-                text = stringResource(id = R.string.plant_date_header),
-                Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                text = vm.plantDateString,
-                Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.labelSmall
-            )
+                // Planted date
+                Text(
+                    text = stringResource(id = R.string.plant_date_header),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Text(
+                    text = vm.plantDateString,
+                    style = MaterialTheme.typography.labelSmall
+                )
 
-            // Last Watered
-            Text(
-                text = stringResource(id = R.string.watered_date_header),
-                Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = marginNormal),
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                text = vm.waterDateString,
-                Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.labelSmall
-            )
-            Text(
-                text = pluralStringResource(
-                    id = R.plurals.watering_next,
-                    count = vm.wateringInterval,
-                    vm.wateringInterval
-                ),
-                Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = marginNormal),
-                style = MaterialTheme.typography.labelSmall
-            )
+                // Last Watered
+                Text(
+                    text = stringResource(id = R.string.watered_date_header),
+                    modifier = Modifier.padding(top = marginNormal),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Text(
+                    text = vm.waterDateString,
+                    style = MaterialTheme.typography.labelSmall
+                )
+                Text(
+                    text = pluralStringResource(
+                        id = R.plurals.watering_next,
+                        count = vm.wateringInterval,
+                        vm.wateringInterval
+                    ),
+                    modifier = Modifier.padding(bottom = marginNormal),
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
         }
     }
 }
