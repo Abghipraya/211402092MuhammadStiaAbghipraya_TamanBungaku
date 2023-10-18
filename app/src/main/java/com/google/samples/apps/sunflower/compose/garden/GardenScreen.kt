@@ -146,7 +146,7 @@ private fun GardenListItem(
     // Dimensions
     val cardSideMargin = dimensionResource(id = R.dimen.card_side_margin)
     val marginNormal = dimensionResource(id = R.dimen.margin_normal)
-    val imageWidth = 100.dp // Adjust the desired image width
+    val imageWidth = 150.dp // Adjust the desired image width
     val imageHeight = 150.dp // Adjust the desired image height
 
     ElevatedCard(
